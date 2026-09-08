@@ -87,25 +87,44 @@ def safety_test2(i0, j0, bd, i):
 
 
 def search(bd, i, j, nsol):
-    if j < N:
-        test = safety_test2(i, j, bd, i - 1)
+    stack = [(bd, i, j, nsol)]
 
-        if test:
-            bd1 = board_set(bd, i, j)
+    while stack:
+        bd, i, j, nsol = stack.pop()
 
-            if i + 1 == N:
-                print(f"Solution #{nsol + 1}:\n")
-                print_board(bd1)
-                return search(bd, i, j + 1, nsol + 1)
+        if j < N:
+            test = safety_test2(i, j, bd, i - 1)
+
+            if test:
+                bd1 = board_set(bd, i, j)
+
+                if i + 1 == N:
+                    print(f"Solution #{nsol + 1}:\n")
+                    print_board(bd1)
+
+                    # Equivalent to:
+                    # search(bd, i, j + 1, nsol + 1)
+                    stack.append((bd, i, j + 1, nsol + 1))
+                else:
+                    # Equivalent to:
+                    # search(bd1, i + 1, 0, nsol)
+                    stack.append((bd1, i + 1, 0, nsol))
             else:
-                return search(bd1, i + 1, 0, nsol)
+                # Equivalent to:
+                # search(bd, i, j + 1, nsol)
+                stack.append((bd, i, j + 1, nsol))
+
         else:
-            return search(bd, i, j + 1, nsol)
-    else:
-        if i > 0:
-            return search(bd, i - 1, board_get(bd, i - 1) + 1, nsol)
-        else:
-            return nsol
+            if i > 0:
+                # Equivalent to:
+                # search(bd, i - 1, board_get(bd, i - 1) + 1, nsol)
+                stack.append(
+                    (bd, i - 1, board_get(bd, i - 1) + 1, nsol)
+                )
+            else:
+                return nsol
+
+    return nsol
 
 
 if __name__ == "__main__":
