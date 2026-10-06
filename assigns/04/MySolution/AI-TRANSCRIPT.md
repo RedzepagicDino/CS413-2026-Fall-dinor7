@@ -1,0 +1,3 @@
+# AI transcript
+
+Tool: OpenAI Codex desktop agent. Prompt: build the supplied Assignment 4 MVC LAMBDA web front-end with documentation and tests. The AI suggested a standard-library WSGI implementation, a restricted `ast` constructor reader instead of `eval`, MVC modules, an adapter result contract, and controller timeout handling. I reviewed that only approved constructors/literals are accepted, that lint calls `d0exp_fvset` without evaluation, that interpretation calls supplied `lambda1.py`, and that placeholder operations are not successes. I ran the automated tests and reviewed generated documentation. I will perform the stated browser smoke test on my machine before submitting.
